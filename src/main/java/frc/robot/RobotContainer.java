@@ -9,9 +9,12 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.BasicAuto;
 import frc.robot.commands.Drive;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.FireShooter;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterRotator;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -27,6 +30,7 @@ public class RobotContainer {
   private CommandXboxController Xbox = new CommandXboxController(0);
   private Drive Driver = new Drive(drivetrain, Xbox);
   private ShooterRotator shooterRotation = new ShooterRotator();
+  private Shooter shooter = new Shooter();
   //private BallShooter ballshooter=new BallShooter();
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -59,6 +63,7 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    Xbox.a().whileTrue(new FireShooter(shooter, Xbox));
   }
 
   /**
